@@ -51,9 +51,8 @@ This project is licensed under the [Apache License 2.0](https://www.apache.org/l
 
 ### 👨‍💻 Let's Stay Connected:
 
-- **GitHub**: [Your GitHub Profile Link]  
-- **Twitter**: [Your Twitter Handle]  
-- **Instagram**: [Your Instagram Handle]
+ - [![Instagram](https://img.shields.io/badge/Instagram-833AB4?style=for-the-badge&logo=instagram&logoColor=white)](https://www.instagram.com/hemako_m?igsh=dXB5dXBnYmgyaTFh)
+ - [![text](https://img.shields.io/badge/LinkedIn-0077B5?style=for-the-badge&logo=linkedin&logoColor=white)](https://eg.linkedin.com/in/ibrahim-mahmoud-1930b3329)
 
 ---
 
