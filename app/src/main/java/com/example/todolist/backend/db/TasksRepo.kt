@@ -1,0 +1,37 @@
+package com.example.todolist.backend.db
+
+import com.example.todolist.backend.model.CollaborationDb
+import com.example.todolist.backend.model.OfflineTask
+import com.example.todolist.backend.model.Task
+import kotlinx.coroutines.flow.Flow
+
+interface TasksRepo {
+    fun getAllTasks(): Flow<List<Task?>>
+    suspend fun getUnSyncedTasks(): Flow<List<Task?>>
+    suspend fun getUnSyncedOrDeletedTasks(): Flow<List<Task?>>
+    fun getTask(id: Int): Flow<Task?>
+    suspend fun insert(task: Task)
+    suspend fun delete(task: Task)
+    suspend fun update(task: Task)
+    suspend fun deleteAll()
+}
+
+interface OfflineTasksRepoInterface {
+    fun getAllTasks(): Flow<List<OfflineTask?>>
+    fun getTask(id: String): Flow<OfflineTask?>
+    suspend fun insert(task: OfflineTask)
+    suspend fun delete(task: OfflineTask)
+    suspend fun update(task: OfflineTask)
+    suspend fun deleteAll()
+
+}
+
+interface CollaborationsRepo {
+    fun getAllCollaborations(): Flow<List<CollaborationDb?>>
+    fun getCollaboration(id: String): Flow<CollaborationDb?>
+    suspend fun insert(collaboration: CollaborationDb)
+    suspend fun delete(collaboration: CollaborationDb)
+    suspend fun update(collaboration: CollaborationDb)
+    suspend fun deleteAll()
+}
+

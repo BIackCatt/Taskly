@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">ToDoList</string>
-    <string name="client_id">client_id</string>
+    <string name="app_name">Taskly</string>
+    <string name="client_id">557898777500-259m71cu05454hcs4v1qh84qaqftjvq1.apps.googleusercontent.com</string>
+    <string name="ai_apiKey">1ZRJxXklvMEN0Sqi6iWsIEKNvX54LMh2ZIbnMQXJ</string>
 </resources>

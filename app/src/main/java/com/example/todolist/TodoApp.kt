@@ -1,12 +1,10 @@
 package com.example.todolist
 
 import android.app.Application
-import android.app.Notification
 import android.app.NotificationChannel
 import android.app.NotificationManager
-import androidx.core.content.getSystemService
-import com.example.todolist.data.AppContainer
-import com.example.todolist.data.DefaultAppContainer
+import com.example.todolist.backend.model.AppContainer
+import com.example.todolist.backend.model.DefaultAppContainer
 
 
 

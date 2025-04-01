@@ -15,8 +15,8 @@ android {
         applicationId = "com.example.todolist"
         minSdk = 26
         targetSdk = 35
-        versionCode = 3
-        versionName = "2.0.1"
+        versionCode = 4
+        versionName = "2.0.2"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -55,6 +55,7 @@ android {
     }
 }
 
+
 dependencies {
     // Splash Screen
     implementation("androidx.core:core-splashscreen:1.0.1")
@@ -62,6 +63,7 @@ dependencies {
     // Compose
     implementation(platform("androidx.compose:compose-bom-alpha:2025.01.00"))
     implementation("androidx.activity:activity-compose:1.10.0")
+    implementation("androidx.compose.animation:animation")
     implementation("androidx.compose.material3:material3")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
@@ -72,11 +74,17 @@ dependencies {
     // Swipe
     implementation("me.saket.swipe:swipe:1.3.0")
 
+    // blur
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.30.1")
+
     // glance widgets
     implementation("androidx.glance:glance-appwidget:1.1.1")
     implementation("androidx.glance:glance-material3:1.1.1")
     implementation("androidx.glance:glance-material:1.1.1")
 
+
+    // snackbar custom
+    implementation("io.github.rizmaulana:compose-stacked-snackbar:1.0.4")
 
     // Core
     implementation("androidx.core:core-ktx:1.15.0")
@@ -84,7 +92,7 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.6.1")
 
     // Navigation
-    implementation("androidx.navigation:navigation-compose:2.8.4")
+    implementation("androidx.navigation:navigation-compose:2.8.9")
     implementation("com.google.accompanist:accompanist-pager:0.28.0")
 
     // Room
@@ -128,6 +136,8 @@ dependencies {
     implementation("com.google.firebase:firebase-storage")
     implementation("com.google.firebase:firebase-auth")
     implementation("com.google.firebase:firebase-firestore-ktx")
+    implementation("com.google.firebase:firebase-config")
+
 
     // Debug
     debugImplementation("androidx.compose.ui:ui-test-manifest")
