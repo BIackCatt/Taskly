@@ -65,6 +65,17 @@ Taskly is built with **Kotlin** and **Jetpack Compose** for a lightning-fast, fl
 |----------|--------|--------------|
 | ![Dark Mode](Screenshots/homewithtasks.jpg) | ![Snackbar](Screenshots/snackbar.jpg) | ![No Tasks](Screenshots/homenotasks.jpg) |
 
+---
+
+### Download Link ⬇
+
+**Steps :**
+ - Go to [!Latest version of Taskly](https://github.com/BIackCatt/Taskly/releases/tag/3.2.2)
+ - Click **Taskly.apk**
+ - And that's it 😉
+
+
+
 
 ---
 
