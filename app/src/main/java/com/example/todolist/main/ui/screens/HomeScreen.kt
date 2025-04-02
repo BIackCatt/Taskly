@@ -541,8 +541,6 @@ fun SuccessHomeScreen(
 
             if (showDialog) {
                 AddTaskDialog(
-                    isEdit = isEdit,
-                    task = task,
                     title = title,
                     onTitleChange = { title = it },
                     description = description,

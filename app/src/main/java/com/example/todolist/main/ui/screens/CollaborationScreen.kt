@@ -70,8 +70,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -525,26 +527,32 @@ fun SuccessCollaborationScreen(
                                     },
                                     isCompleted = pageIndex == 1,
                                     onEditClick = {
-                                        collaborationViewModel.updateTask(
-                                            user = userAccount!!,
-                                            collabId = collabsState.currentCollab!!.id,
-                                            task = it,
-                                            onSuccess = {
-                                                stackedSnackbarHostState.showSuccessSnackbar(
-                                                    title = "Editing Task Successfully",
-                                                    duration = StackedSnackbarDuration.Short
-                                                )
-                                            },
-                                            onError = {
-                                                stackedSnackbarHostState.showErrorSnackbar(
-                                                    title = "Something went wrong",
-                                                    description = "Editing Task Failed",
-                                                    duration = StackedSnackbarDuration.Short
-                                                )
-                                            }
-                                        )
+                                        if (isConnected) {
+                                            collaborationViewModel.updateTask(
+                                                user = userAccount!!,
+                                                collabId = collabsState.currentCollab!!.id,
+                                                task = it,
+                                                onSuccess = {
+                                                    stackedSnackbarHostState.showSuccessSnackbar(
+                                                        title = "Editing Task Successfully",
+                                                        duration = StackedSnackbarDuration.Short
+                                                    )
+                                                },
+                                                onError = {
+                                                    stackedSnackbarHostState.showErrorSnackbar(
+                                                        title = "Something went wrong",
+                                                        description = "Editing Task Failed",
+                                                        duration = StackedSnackbarDuration.Short
+                                                    )
+                                                }
+                                            )
+                                        } else {
+                                            stackedSnackbarHostState.showInfoSnackbar(
+                                                "No Internet Connection",
+                                                duration = StackedSnackbarDuration.Short
+                                            )
+                                        }
                                     }
-
                                 )
                             }
                         }
@@ -717,6 +725,7 @@ fun CollaborationTodoCard(
     task: CollabTask,
     onCheckedChange: (CollabTask) -> Unit,
     onDeleteClick: (CollabTask) -> Unit,
+
 ) {
     val context = LocalContext.current
     var expanded by remember { mutableStateOf(false) }
@@ -750,15 +759,19 @@ fun CollaborationTodoCard(
     }
     if (isEditing) {
         TaskEditDialog(
-            onDismiss = { isEditing = false },
+            onDismiss = {
+                isEditing = false
+                expanded = false
+                        },
             onEditClick = { title, description ->
                 onEditClick(title, description)
                 isEditing = false
+                expanded = false
             },
             task = task,
             roleColor = if (currentUser) {
                 CollabColors.CurrentUserTask
-            } else if (isAdmin && !isCompleted) {
+            } else if (!isCompleted) {
                 CollabColors.BottomBar
             } else {
                 CollabColors.CompletedTask
@@ -767,8 +780,6 @@ fun CollaborationTodoCard(
     }
 }
 
-
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskEditDialog(
     roleColor: Color,
@@ -789,7 +800,7 @@ fun TaskEditDialog(
             Card(
                 colors = CardDefaults.cardColors(
                     containerColor = roleColor,
-                    contentColor = CollabColors.PrimaryText
+                    contentColor = Color.White
                 ),
                 modifier = Modifier
                     .width(350.dp)
@@ -811,24 +822,32 @@ fun TaskEditDialog(
                     item {
                         OutlinedTextField(
                             colors = OutlinedTextFieldDefaults.colors(
-                                unfocusedTextColor = CollabColors.PrimaryText,
-                                unfocusedBorderColor = CollabColors.PrimaryText,
-                                unfocusedLabelColor = CollabColors.PrimaryText,
+                                unfocusedTextColor = CollabColors.SecondaryText,
+                                unfocusedBorderColor = CollabColors.SecondaryText,
+                                unfocusedLabelColor = CollabColors.SecondaryText,
+                                focusedLabelColor = CollabColors.PrimaryText,
+                                focusedTextColor = CollabColors.PrimaryText,
+                                focusedBorderColor = CollabColors.PrimaryText,
                             ),
                             modifier = Modifier.fillMaxWidth(),
+                            textStyle = TextStyle(textDirection = TextDirection.ContentOrLtr),
                             value = title,
                             onValueChange = { title = it },
                             label = { Text("Task Title") })
                         Spacer(Modifier.height(8.dp))
                         OutlinedTextField(
                             colors = OutlinedTextFieldDefaults.colors(
-                                unfocusedTextColor = CollabColors.PrimaryText,
-                                unfocusedBorderColor = CollabColors.PrimaryText,
-                                unfocusedLabelColor = CollabColors.PrimaryText,
+                                unfocusedTextColor = CollabColors.SecondaryText,
+                                unfocusedBorderColor = CollabColors.SecondaryText,
+                                unfocusedLabelColor = CollabColors.SecondaryText,
+                                focusedLabelColor = CollabColors.PrimaryText,
+                                focusedTextColor = CollabColors.PrimaryText,
+                                focusedBorderColor = CollabColors.PrimaryText,
                             ),
                             modifier = Modifier.fillMaxWidth(),
                             value = description,
                             onValueChange = { description = it },
+                            textStyle = TextStyle(textDirection = TextDirection.ContentOrLtr),
                             label = { Text("Task Description") },
                             placeholder = {
                                 if (description.isBlank()) {
@@ -846,8 +865,15 @@ fun TaskEditDialog(
                                 onEditClick(title, description)
                             },
                             colors = ButtonDefaults.buttonColors(
-                                containerColor = OutlinedTextFieldDefaults.colors().focusedLabelColor.copy(
-                                    alpha = 0.7f
+                                disabledContainerColor = roleColor.copy(
+                                    red = ((roleColor.red * 0.7).toFloat()),
+                                    green = ((roleColor.green * 0.7).toFloat()),
+                                    blue = ((roleColor.blue * 0.7).toFloat())
+                                ),
+                                containerColor = roleColor.copy(
+                                    red = ((roleColor.red * 1.5).toFloat()),
+                                    green = ((roleColor.green * 1.5).toFloat()),
+                                    blue = ((roleColor.blue * 1.5).toFloat())
                                 ),
                                 contentColor = CollabColors.PrimaryText,
                             ),
@@ -938,7 +964,11 @@ fun DefaultTaskCard(
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                Column {
+                Column(
+                    horizontalAlignment = Alignment.End,
+                    verticalArrangement = Arrangement.Top,
+                    modifier = Modifier.padding(end = 10.dp)
+                ) {
                     Text(
                         text = if (userAccount?.userId == (creator["id"] as String)) "You" else (creator["username"] as String),
                         fontWeight = FontWeight.Bold,
@@ -959,8 +989,9 @@ fun DefaultTaskCard(
                     if (task.description.isNotEmpty()) {
                         Spacer(modifier = Modifier.height(8.dp))
                         Text(
-                            text = "Description: ${task.description}",
-                            fontSize = 12.sp,
+                            text = "Description:\n${task.description}",
+                            style = TextStyle(textDirection = TextDirection.ContentOrLtr),
+                            fontSize = 16.sp,
                             fontWeight = FontWeight.Bold,
                             color = CollabColors.PrimaryText.copy(alpha =0.8f)
                         )

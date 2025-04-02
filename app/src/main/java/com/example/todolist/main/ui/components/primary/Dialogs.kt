@@ -79,6 +79,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDirection
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.compose.ui.window.Dialog
@@ -101,14 +102,14 @@ import java.text.SimpleDateFormat
 @Composable
 fun AddTaskDialog(
     title: String,
-    isEdit: Boolean,
-    task: TaskUiState?,
     onTitleChange: (String) -> Unit,
     description: String,
     onDescriptionChange: (String) -> Unit,
     onDismiss: () -> Unit,
     onSave: (TaskUiState) -> Unit
 ) {
+    val textFieldUnFocusedColor = Color.LightGray
+    val textFieldFocusedColor = Color(0xB9EED8FF)
     AlertDialog(
         containerColor = Color.Transparent,
         titleContentColor = CollabColors.PrimaryText,
@@ -138,14 +139,22 @@ fun AddTaskDialog(
                 OutlinedTextField(
                     colors = TextFieldDefaults.colors(
                         focusedContainerColor = Color.Transparent,
-                        focusedLabelColor = Color.White,
-                        unfocusedContainerColor = Color.Transparent
+                        unfocusedContainerColor = Color.Transparent,
+                        focusedLabelColor = textFieldFocusedColor,
+                        focusedTextColor = textFieldFocusedColor,
+                        focusedLeadingIconColor = textFieldFocusedColor,
+                        focusedSupportingTextColor = textFieldFocusedColor,
+
+                        unfocusedLabelColor  = textFieldUnFocusedColor,
+                        unfocusedTextColor = textFieldUnFocusedColor,
+                        unfocusedLeadingIconColor = textFieldUnFocusedColor,
+                        unfocusedSupportingTextColor = textFieldUnFocusedColor
+
                     ),
                     label = { Text("Task Title") },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Filled.Title,
-                            tint = Color.White,
                             contentDescription = "title"
                         )
                     },
@@ -153,12 +162,12 @@ fun AddTaskDialog(
                         Text(
                             "Required",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White
                         )
                     },
                     textStyle = TextStyle(
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Start,
+                        textDirection = TextDirection.ContentOrLtr,
                         color = Color.White,
                         fontSize = MaterialTheme.typography.titleLarge.fontSize,
                     ),
@@ -170,17 +179,31 @@ fun AddTaskDialog(
                 )
                 // Description input field
                 OutlinedTextField(
+                    colors = TextFieldDefaults.colors(
+                        focusedContainerColor = Color.Transparent,
+                        unfocusedContainerColor = Color.Transparent,
+                        focusedLabelColor = textFieldFocusedColor,
+                        focusedTextColor = textFieldFocusedColor,
+                        focusedLeadingIconColor = textFieldFocusedColor,
+                        focusedSupportingTextColor = textFieldFocusedColor,
+
+                        unfocusedLabelColor  = textFieldUnFocusedColor,
+                        unfocusedTextColor = textFieldUnFocusedColor,
+                        unfocusedLeadingIconColor = textFieldUnFocusedColor,
+                        unfocusedSupportingTextColor = textFieldUnFocusedColor
+
+                    ),
                     textStyle = TextStyle(
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Start,
                         color = Color.White,
+                        textDirection = TextDirection.ContentOrLtr,
                         fontSize = MaterialTheme.typography.titleSmall.fontSize,
                     ),
                     label = { Text("Description") },
                     leadingIcon = {
                         Icon(
                             imageVector = Icons.Filled.Description,
-                            tint = Color.White,
                             contentDescription = "Description"
                         )
                     },
@@ -188,18 +211,13 @@ fun AddTaskDialog(
                         Text(
                             "Optional",
                             style = MaterialTheme.typography.bodyLarge,
-                            color = Color.White
                         )
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
                     value = description,
                     onValueChange = onDescriptionChange,
-                    maxLines = 10,
-                    colors = TextFieldDefaults.colors(
-                        focusedContainerColor = Color.Transparent,
-                        unfocusedContainerColor = Color.Transparent,
-                    )
+                    maxLines = 10
                 )
             }
         },
@@ -801,6 +819,7 @@ fun AddCollabTaskDialog(
                         cursorColor = CollabDialogColors.CursorColor
                     ),
                     value = title,
+                    textStyle = TextStyle(textDirection = TextDirection.ContentOrLtr),
                     onValueChange = onTitleChange,
                     label = { Text("Title *") },
                     modifier = Modifier
@@ -827,6 +846,7 @@ fun AddCollabTaskDialog(
                     value = description,
                     onValueChange = onDescriptionChange,
                     label = { Text("Description") },
+                    textStyle = TextStyle(textDirection = TextDirection.ContentOrLtr),
                     modifier = Modifier.fillMaxWidth(),
                     maxLines = 3,
                 )

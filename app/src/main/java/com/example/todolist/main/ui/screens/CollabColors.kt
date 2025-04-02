@@ -15,7 +15,7 @@ object CollabColors {
     val UncompletedTask = Color(0xFF0072CB) // Light Blue (Start)
 
     // 🔵 Current User's Task Card (Highlighting user’s own tasks)
-    val CompletedTask = Color(0x9C45BD17) // Bright Blue
+    val CompletedTask = Color(0xFF338216) // Bright Blue
 
     // ✅ Completed Task Card (To indicate completion)
     val CurrentUserTask = Color(0xFF357F73) // Blue-Green
