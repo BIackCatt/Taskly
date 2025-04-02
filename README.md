@@ -57,7 +57,13 @@ Taskly is built with **Kotlin** and **Jetpack Compose** for a lightning-fast, fl
 
 ### Screenshots 📷
 
+| Home Screen | Task Edit | Collaboration |
+|------------|--------------|--------------|
+| ![Home](Screenshots/lightmode.jpg) | ![Task Edit](Screenshots/taskeditlight.jpg) | ![Collaboration](Screenshots/collabscreen.jpg) |
 
+| Dark Mode | Snackbar | No Tasks |
+|----------|--------|--------------|
+| ![Dark Mode](Screenshots/homewithtasks.jpg) | ![Snackbar](Screenshots/snackbar.jpg) | ![No Tasks](Screenshots/homenotasks.jpg) |
 
 
 ---
